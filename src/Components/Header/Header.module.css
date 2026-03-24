@@ -1,0 +1,44 @@
+header {
+    right: 20px;
+    left: 20px;
+    top: 0;
+    border: 1px solid black;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 99;
+    background-color: #fff;
+}
+
+/* Группа кнопок справа */
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Контейнер для фото и имени */
+.user-info {
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    gap: 12px; /* Расстояние между фото и текстом */
+}
+
+/* Стили аватарки */
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* Делаем круглой */
+    object-fit: cover; /* Чтобы фото не искажалось */
+    border: 2px solid #eee;
+    background-color: #f0f0f0; /* Цвет до загрузки фото */
+}
+
+/* Стили имени */
+.username {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0; /* Сбрасываем лишние отступы h2 */
+    color: #333;
+}

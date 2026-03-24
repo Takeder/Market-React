@@ -1,0 +1,34 @@
+.cart-product {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    gap: 10px;
+    align-items: center;
+}
+.cart-product__title {
+    min-width: 100%;
+    padding-right: 20px;
+}
+
+.cart-product__btn-del {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-products__count-container {
+}
+.decrement {
+}
+.increment {
+}
+.cart-product__price {
+}

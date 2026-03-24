@@ -1,0 +1,12 @@
+.list {
+    margin-top: 100px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+    width: 100%;
+    transition: 0.3s;
+}
+
+.list-responsive {
+    width: calc(100% - 330px);
+}

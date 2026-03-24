@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Noto Sans";
+    src: url("../src/Assets/Fonts/NotoSansRegular.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("../src/Assets/Fonts/NotoSansSemiBold.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 600;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#root {
+    padding: 20px;
+}
+
+:root {
+    --color-dark: #4d4d4d;
+    --color-light: #808080;
+    --color-accent: #5d71dd;
+}
