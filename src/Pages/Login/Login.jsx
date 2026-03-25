@@ -5,7 +5,7 @@ export default function Login() {
     const [value, setValue] = useState({});
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(value);
+        // console.log(value);
     }
 
     function handleChange(e) {
