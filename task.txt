@@ -1,2 +1,3 @@
-Отправка на сервер, закончить процесс авторизации через Login
-Записать Токен в localStorage
+Сделать коомпонент модаллльного окна формы заказа OrderForm
+Логика орткрытия и закрытия
+Исправить ошибку формы ллогина react-dom-client.development.js:20851 A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info:
