@@ -2,9 +2,11 @@ header {
     right: 20px;
     left: 20px;
     top: 0;
+    height: 87px;
     border: 1px solid black;
     padding: 20px;
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
     position: fixed;

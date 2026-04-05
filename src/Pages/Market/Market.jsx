@@ -1,29 +1,68 @@
-import ProductList from "../../UI/ProductList/ProductList";
-import { useEffect, useState } from "react";
-import ProductCard from "../../Components/ProductCard/ProductCard";
-import Header from "../../Components/Header/Header";
-import Cart from "../../Components/Cart/Cart";
+import { useEffect, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../api";
 
+import Header from "../../Components/Header/Header";
+import Cart from "../../Components/Cart/Cart";
+import ProductList from "../../UI/ProductList/ProductList";
+import ProductCard from "../../Components/ProductCard/ProductCard";
+import OrderForm from "../../Components/OrderForm/OrderForm";
+
 export default function Market() {
+    const navigate = useNavigate();
+
+    // Состояние данных
+    const [user, setUser] = useState(null);
     const [products, setProducts] = useState([]);
-    const [isOpenCart, setIsOpenCart] = useState(false);
     const [cartProducts, setCartProducts] = useState([]);
 
-    useEffect(() => {
-        // Создаем асинхронную функцию внутри эффекта
-        const fetchProducts = async () => {
-            try {
-                const data = await api.getProducts();
-                // У DummyJSON данные лежат в data.products
-                setProducts(data.products);
-            } catch (error) {
-                console.error("Ошибка при загрузке товаров:", error);
-            }
-        };
+    // Состояние модалок
+    const [isOpenCart, setIsOpenCart] = useState(false);
+    const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
 
-        fetchProducts();
+    // Создаем асинхронную функцию внутри эффекта
+    const fetchProducts = async () => {
+        try {
+            const data = await api.getProducts();
+            // У DummyJSON данные лежат в data.products
+            setProducts(data.products);
+        } catch (error) {
+            console.error("Ошибка при загрузке товаров:", error);
+        }
+    };
+
+    const auth = async () => {
+        try {
+            const response = await api.checkToken();
+            if (!response.ok) throw new Error();
+            const data = await response.json();
+
+            setUser(data);
+        } catch (error) {
+            navigate("/login");
+            console.error("Ошибка авторизации:", error);
+        }
+    };
+
+    useEffect(() => {
+        auth();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Пустой массив гарантирует вызов только при первом рендере
+
+    useEffect(() => {
+        if (user) fetchProducts();
+    }, [user]);
+
+    // Расчет итоговой суммы (вынесен сюда для передачи в OrderForm)
+    const totalSum = useMemo(() => {
+        return cartProducts
+            .reduce((sum, item) => {
+                // Используем цену (price). Если нужно со скидкой — добавьте расчет.
+                return sum + item.discountPercentage * (item.quantity || 1);
+            }, 0)
+            .toFixed(2);
+    }, [cartProducts]);
+
     //Добавление в корзину просто
     function addToCart(product) {
         const findedProduct = cartProducts.find(
@@ -61,14 +100,28 @@ export default function Market() {
         setIsOpenCart((prev) => !prev);
     }
 
+    // 5. Переход к оформлению
+    const handleCheckout = () => {
+        setIsOpenCart(false);
+        setIsOrderFormOpen(true);
+    };
+
     return (
         <div>
-            <Header openCart={openCart} />
+            <Header user={user} openCart={openCart} />
             <Cart
                 isOpenCart={isOpenCart}
                 cartProducts={cartProducts}
                 setCartProducts={setCartProducts}
                 changeQuantity={changeQuantity}
+                onCheckout={handleCheckout} // Проп для кнопки "Оформить"
+            />
+            <OrderForm
+                isOpen={isOrderFormOpen}
+                onClose={() => setIsOrderFormOpen(false)}
+                totalSum={totalSum} // Передай сюда сумму, которую мы считали в Cart (или вынеси расчет в Market)
+                cartProducts={cartProducts}
+                setCartProducts={setCartProducts}
             />
             <ProductList>
                 {products.map((product) => {

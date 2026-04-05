@@ -17,6 +17,7 @@ class Api {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...body, expiresInMins: 1 }),
         });
+
         return response;
     }
     async checkToken() {

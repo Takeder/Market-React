@@ -1,0 +1,128 @@
+/* Задний фон (затемнение) */
+.overLay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px); /* Размытие фона сзади */
+}
+
+/* Само модальное окно */
+.overLay__order {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overLay__order__title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* Кнопка закрытия (крестик) */
+.overLay__btnClose {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.overLay__btnClose:hover {
+    transform: scale(1.1);
+}
+
+.overLay__btnClose img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Группировка полей */
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.overLay__order__label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #666;
+    gap: 5px;
+}
+
+.overLay__order__input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.overLay__order__input:focus {
+    outline: none;
+    border-color: #007bff; /* Цвет акцента при фокусе */
+}
+
+/* Нижняя часть с ценой и кнопкой */
+.orderSummary {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.orderSummary p {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745; /* Зеленый цвет для оформления */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}

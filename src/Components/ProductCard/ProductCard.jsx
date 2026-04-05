@@ -32,8 +32,8 @@ export default function ProductCard({ product, addToCart }) {
                         aria-hidden="true"
                     ></ul>
                 </div>
-                <h3 className={style["product__title"]}>
-                    <p>{product.title}</p>
+                <h3 title={product.title} className={style["product__title"]}>
+                    {product.title}{" "}
                 </h3>
                 <div className={style["product__props"]}>
                     <span className={style["product__rating"]}>

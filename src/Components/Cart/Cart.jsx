@@ -7,6 +7,7 @@ export default function Cart({
     cartProducts,
     setCartProducts,
     changeQuantity,
+    onCheckout, // Новый проп для открытия формы заказа
 }) {
     // Пересчитываем сумму с учетом количества каждого товара
     const totalSum = useMemo(() => {
@@ -23,32 +24,49 @@ export default function Cart({
             }),
         );
     }
-    function clearCart() {
-        setCartProducts([]);
-    }
+
+    // Если корзина пуста, показываем заглушку вместо списка
+    const isEmpty = cartProducts.length === 0;
+
     return (
         <section
             className={`${style.cart} ${isOpenCart && style["cart-visible"]}`}
         >
             <div className={style["cart__products"]}>
-                {cartProducts.map((product) => {
-                    return (
+                {isEmpty ? (
+                    <p className={style["cart__empty-msg"]}>
+                        Корзина пока пуста
+                    </p>
+                ) : (
+                    cartProducts.map((product) => (
                         <CartProduct
                             product={product}
                             key={product.id}
                             removeProduct={removeProduct}
                             changeQuantity={changeQuantity}
                         />
-                    );
-                })}
+                    ))
+                )}
             </div>
             <div className={style["cart__actions"]}>
                 <p className={style["cart__actions__price"]}>
-                    Сумма всей корзины: <span>{totalSum.toLocaleString()}</span>
+                    Сумма всей корзины: <span>{totalSum.toLocaleString()}</span>{" "}
                     р.
                 </p>
-                <button className={style["cart-order"]}>Оформить заказ</button>
-                <button onClick={clearCart} className={style["clean-cart"]}>
+
+                <button
+                    className={style["cart-order"]}
+                    onClick={onCheckout}
+                    disabled={isEmpty}
+                >
+                    Оформить заказ
+                </button>
+
+                <button
+                    onClick={() => setCartProducts([])}
+                    className={style["clean-cart"]}
+                    disabled={isEmpty}
+                >
                     Очистить корзину
                 </button>
             </div>
